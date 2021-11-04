@@ -1,7 +1,10 @@
 import GoodsItem from "../goodsItem";
 
 const GoodsList = (props) => {
-    const {goods = []} = props;
+    const {
+        goods = [],
+        addToBasket = Function.prototype,
+    } = props;
 
     if (goods === null || !goods.length) return <h4>Ничего не найдено(</h4>
 
@@ -9,7 +12,7 @@ const GoodsList = (props) => {
         <div className='goodsList'>
             {
                 goods.map(item => {
-                    return <GoodsItem key={item.id} {...item}/>
+                    return <GoodsItem key={item.id} item={item} addToBasket={addToBasket}/>
                 })
             }
         </div>

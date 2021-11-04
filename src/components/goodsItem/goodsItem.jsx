@@ -1,11 +1,12 @@
 const GoodsItem = (props) => {
+    const {item, addToBasket} = props;
     const {
         id,
         name,
         description,
         price,
-        full_background,
-    } = props;
+        full_background
+    } = item;
 
     return(
         <div id={id} className="card">
@@ -17,7 +18,10 @@ const GoodsItem = (props) => {
                 <p>{description}</p>
             </div>
             <div className="card-action">
-                <button className='btn'>Купить</button>
+                <button
+                    className='btn'
+                    onClick={() => addToBasket(item)}
+                >Купить</button>
                 <span className='right' style={{fontSize: '1.8rem'}}>{price} руб.</span>
             </div>
         </div>
