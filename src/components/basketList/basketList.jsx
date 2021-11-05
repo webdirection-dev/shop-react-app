@@ -25,7 +25,13 @@ const BasketList = (props) => {
                     />) :
                     <li className="collection-item"><b>Корзина пока пуста :(</b></li>
             }
-            <li className="collection-item active"><b>Общая стоимость: {totalPrice} руб.</b></li>
+            <li className="collection-item active">
+                <b>Общая стоимость: {totalPrice} руб.</b>
+            </li>
+
+            <li className="collection-item right">
+                <button className="btn-small">Оформить</button>
+            </li>
 
             <i
                 className='material-icons basket-close'

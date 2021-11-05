@@ -3,6 +3,7 @@ import GoodsList from "../goodsList";
 import Preloader from "../preloader";
 import Cart from "../cart";
 import BasketList from "../basketList";
+import Alerts from "../../alerts/alerts";
 
 import GoodsService from "../services/goods-service";
 const getData = new GoodsService();
@@ -12,6 +13,7 @@ const Shop = () => {
     const [goods, setGoods] = useState(null);
     const [orders, setOrders] = useState([]);
     const [isBasketShow, setBasketShow] = useState(false);
+    const [alertName, setAlertName] = useState(null);
 
     // Добавить заказы в корзину
     const addToBasket = (currentItem) => {
@@ -30,12 +32,14 @@ const Shop = () => {
                     return {
                         ...item,
                         quantity: item.quantity + 1
-                    }
+                }
                 } else return item;
             });
 
             setOrders(newOrder);
         }
+
+        setAlertName(currentItem.name)
     };
 
     // Удалить заказы из корзины
@@ -79,6 +83,11 @@ const Shop = () => {
         setBasketShow(!isBasketShow);
     };
 
+    // Алерты
+    const closeAlert = () => {
+        setAlertName(null);
+    };
+
     // componentDidMount
     useEffect(() => {
         getData.getGoodsList()
@@ -102,6 +111,8 @@ const Shop = () => {
             removeFromBasket={removeFromBasket}
             onDecItem={onDecItem}
             onIncItem={onIncItem}
+            alertName={alertName}
+            closeAlert={closeAlert}
         />
     )
 };
@@ -118,7 +129,9 @@ const View = (props) => {
         toBasketShow,
         removeFromBasket,
         onDecItem,
-        onIncItem
+        onIncItem,
+        alertName,
+        closeAlert
     } = props;
     return(
         <main className="container content">
@@ -147,6 +160,10 @@ const View = (props) => {
                     onDecItem={onDecItem}
                     onIncItem={onIncItem}
                 /> : null
+            }
+
+            {
+                alertName ? <Alerts name={alertName} closeAlert={closeAlert}/> : null
             }
         </main>
     )
