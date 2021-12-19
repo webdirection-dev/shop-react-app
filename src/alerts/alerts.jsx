@@ -1,10 +1,11 @@
-import {useEffect} from "react";
+import {useEffect, useContext} from "react"
+import {ShopContext} from "../context";
 
-const Alerts = (props) => {
+const Alerts = () => {
     const {
-        name = null,
+        alertName = null,
         closeAlert = Function.prototype,
-    } = props;
+    } = useContext(ShopContext);
 
     // componentDidUpdate
     useEffect(() => {
@@ -13,12 +14,12 @@ const Alerts = (props) => {
         // componentDidUnmount
         return () => clearTimeout(timerId)
         // eslint-disable-next-line
-    }, [name]);
+    }, [alertName]);
 
     return(
         <div id="toast-container">
             <div className="toast">
-                {name} добавлен в корзину
+                {alertName} добавлен в корзину
             </div>
         </div>
     )
